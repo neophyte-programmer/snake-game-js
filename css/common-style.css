@@ -1,0 +1,36 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 0;
+    /* background-image: url('https://cdn.wallpapersafari.com/66/44/zldaLS.jpg');
+    background-size: cover;                      
+    background-repeat: no-repeat;
+    background-position: center center; */
+    background-color: #000;
+}
+
+#game-board {
+    background-image: url('https://opengameart.org/sites/default/files/grass_template2.jpg');
+    background-size: cover;                      
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 5px solid #fff;
+    width: 100vmin;
+    height: 100vmin;
+    display: grid;
+    grid-template-rows: repeat(21, 1fr);
+    grid-template-columns: repeat(21, 1fr);
+}
+
+.snake {
+    background-color: #0000ff;
+    border: 0.25vmin solid #000;
+}
+
+.food {
+    background-color: #ffff00;
+    border: 0.25vmin solid #000;
+}
