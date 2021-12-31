@@ -1,30 +1,45 @@
-import { update as updateSnake, draw as drawSnake, SNAKE_SPEED } from './snake.js'
-import { update as updateFood, draw as drawFood} from './food.js'
+import { update as updateSnake, draw as drawSnake, SNAKE_SPEED, getSnakeHead, snakeIntersection } from './snake.js'
+import { update as updateFood, draw as drawFood } from './food.js'
+import { outsideGrid } from './grid.js'
 
-let lastRenderTime = 0  // Stores how long it has been since last render time
+let lastRenderTime = 0
+let gameOver = false
 const gameBoard = document.getElementById('game-board')
 
 function main(currentTime) {
-    window.requestAnimationFrame(main)  // Loops the game
-    const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000    // Divided by 1000 because it is in ms and we want to convert to s
-    if (secondsSinceLastRender < 1 / SNAKE_SPEED) return
+  if (gameOver) {
+    if (confirm('You lost. Press ok to restart.')) {
+      window.location = '/'
+    }
+    return
+  }
 
-    
-    lastRenderTime = currentTime
 
-    update()    // This function will update all the logic for the game
-    draw()  // This function will draw everything on the screen based on update()
+  window.requestAnimationFrame(main)
+  const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
+  if (secondsSinceLastRender < 1 / SNAKE_SPEED) return
+
+
+  lastRenderTime = currentTime
+
+  update()
+  draw()
 }
 
 window.requestAnimationFrame(main)
 
 function update() {
-    updateSnake()
-    updateFood()
+  updateSnake()
+  updateFood()
+  checkDeath()
 }
 
 function draw() {
-    gameBoard.innerHTML = " "   // to clear the previous snake body
-    drawSnake(gameBoard)
-    drawFood(gameBoard)
+  gameBoard.innerHTML = ''
+  drawSnake(gameBoard)
+  drawFood(gameBoard)
+}
+
+function checkDeath() {
+  gameOver = outsideGrid(getSnakeHead()) || snakeIntersection()
 }
