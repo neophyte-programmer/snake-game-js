@@ -1,4 +1,5 @@
 import { update as updateSnake, draw as drawSnake, SNAKE_SPEED } from './snake.js'
+import { update as updateFood, draw as drawFood} from './food.js'
 
 let lastRenderTime = 0  // Stores how long it has been since last render time
 const gameBoard = document.getElementById('game-board')
@@ -19,9 +20,11 @@ window.requestAnimationFrame(main)
 
 function update() {
     updateSnake()
+    updateFood()
 }
 
 function draw() {
     gameBoard.innerHTML = " "   // to clear the previous snake body
     drawSnake(gameBoard)
+    drawFood(gameBoard)
 }
